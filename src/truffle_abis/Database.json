@@ -1,0 +1,1579 @@
+{
+  "contractName": "Database",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.13+commit.abaa5c0e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/Database.sol\":\"Database\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/Database.sol\":{\"keccak256\":\"0xfb0b2f5cb7ce78176ec1b1fc09416fe6427fe80e3a7cc9a345d8440610c38d9f\",\"urls\":[\"bzz-raw://c0a205656dab5ed2ae9c7412309f57c7626caf738e632359c679d03aef3c9a29\",\"dweb:/ipfs/Qmf6jRXYcPDi4FDgYdVfgRAgaMfW2d9hnPYijme2Sijc5r\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122038eb7464c67cae4fff2e30cdafbdcaf6285675917757680af77b261a4de34c7364736f6c634300080d0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122038eb7464c67cae4fff2e30cdafbdcaf6285675917757680af77b261a4de34c7364736f6c634300080d0033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "33:713:0:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "33:713:0:-:0;;;;;",
+  "source": "pragma solidity >=0.7.0 <0.9.0;\n\ncontract Database {\n\n    struct User {\n        string userName;\n        string about;\n        string userId;\n        string profilePhoto;\n        address ethereumAddress;\n        Friend[] friendList;\n    }\n\n    struct Friend {\n        string friendId;\n    }\n\n    struct Message {\n        address sender;\n        string messageId;\n        string msg;\n    }\n\n    struct Group {\n        string groupName;\n        string groupId;\n        string groupAbout;\n        string groupPhoto;\n        address admin;\n        address[] membersArray;\n        mapping(address=>bool) members;\n        mapping(uint => Message) messages;\n    }\n\n    mapping(address => User) userList;\n    mapping(bytes32 => Message[]) allMessages;\n\n}",
+  "sourcePath": "/home/ritik/Desktop/TY files/Sem 6/SE/Samvad/src/contracts/Database.sol",
+  "ast": {
+    "absolutePath": "project:/src/contracts/Database.sol",
+    "exportedSymbols": {
+      "Database": [
+        61
+      ]
+    },
+    "id": 62,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Database",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 61,
+        "linearizedBaseContracts": [
+          61
+        ],
+        "name": "Database",
+        "nameLocation": "42:8:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Database.User",
+            "id": 16,
+            "members": [
+              {
+                "constant": false,
+                "id": 3,
+                "mutability": "mutable",
+                "name": "userName",
+                "nameLocation": "87:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "80:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 2,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "80:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 5,
+                "mutability": "mutable",
+                "name": "about",
+                "nameLocation": "112:5:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "105:12:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 4,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "105:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7,
+                "mutability": "mutable",
+                "name": "userId",
+                "nameLocation": "134:6:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "127:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 6,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "127:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 9,
+                "mutability": "mutable",
+                "name": "profilePhoto",
+                "nameLocation": "157:12:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "150:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 8,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "150:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 11,
+                "mutability": "mutable",
+                "name": "ethereumAddress",
+                "nameLocation": "187:15:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "179:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 10,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "179:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 15,
+                "mutability": "mutable",
+                "name": "friendList",
+                "nameLocation": "221:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "212:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Friend_$19_storage_$dyn_storage_ptr",
+                  "typeString": "struct Database.Friend[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 13,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 12,
+                      "name": "Friend",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 19,
+                      "src": "212:6:0"
+                    },
+                    "referencedDeclaration": 19,
+                    "src": "212:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Friend_$19_storage_ptr",
+                      "typeString": "struct Database.Friend"
+                    }
+                  },
+                  "id": 14,
+                  "nodeType": "ArrayTypeName",
+                  "src": "212:8:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_Friend_$19_storage_$dyn_storage_ptr",
+                    "typeString": "struct Database.Friend[]"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "User",
+            "nameLocation": "65:4:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "58:180:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Friend",
+            "id": 19,
+            "members": [
+              {
+                "constant": false,
+                "id": 18,
+                "mutability": "mutable",
+                "name": "friendId",
+                "nameLocation": "275:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 19,
+                "src": "268:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 17,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "268:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Friend",
+            "nameLocation": "251:6:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "244:46:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Message",
+            "id": 26,
+            "members": [
+              {
+                "constant": false,
+                "id": 21,
+                "mutability": "mutable",
+                "name": "sender",
+                "nameLocation": "329:6:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "321:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 20,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "321:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 23,
+                "mutability": "mutable",
+                "name": "messageId",
+                "nameLocation": "352:9:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "345:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 22,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "345:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 25,
+                "mutability": "mutable",
+                "name": "msg",
+                "nameLocation": "378:3:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "371:10:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 24,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "371:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Message",
+            "nameLocation": "303:7:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "296:92:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Group",
+            "id": 49,
+            "members": [
+              {
+                "constant": false,
+                "id": 28,
+                "mutability": "mutable",
+                "name": "groupName",
+                "nameLocation": "424:9:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "417:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 27,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "417:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30,
+                "mutability": "mutable",
+                "name": "groupId",
+                "nameLocation": "450:7:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "443:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 29,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "443:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 32,
+                "mutability": "mutable",
+                "name": "groupAbout",
+                "nameLocation": "474:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "467:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 31,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "467:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 34,
+                "mutability": "mutable",
+                "name": "groupPhoto",
+                "nameLocation": "501:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "494:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 33,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "494:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 36,
+                "mutability": "mutable",
+                "name": "admin",
+                "nameLocation": "529:5:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "521:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 35,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "521:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 39,
+                "mutability": "mutable",
+                "name": "membersArray",
+                "nameLocation": "554:12:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "544:22:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                  "typeString": "address[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 37,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "544:7:0",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 38,
+                  "nodeType": "ArrayTypeName",
+                  "src": "544:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                    "typeString": "address[]"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 43,
+                "mutability": "mutable",
+                "name": "members",
+                "nameLocation": "599:7:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "576:30:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                  "typeString": "mapping(address => bool)"
+                },
+                "typeName": {
+                  "id": 42,
+                  "keyType": {
+                    "id": 40,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "584:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "576:22:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                    "typeString": "mapping(address => bool)"
+                  },
+                  "valueType": {
+                    "id": 41,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "593:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 48,
+                "mutability": "mutable",
+                "name": "messages",
+                "nameLocation": "641:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "616:33:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Message_$26_storage_$",
+                  "typeString": "mapping(uint256 => struct Database.Message)"
+                },
+                "typeName": {
+                  "id": 47,
+                  "keyType": {
+                    "id": 44,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "624:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "616:24:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Message_$26_storage_$",
+                    "typeString": "mapping(uint256 => struct Database.Message)"
+                  },
+                  "valueType": {
+                    "id": 46,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 45,
+                      "name": "Message",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 26,
+                      "src": "632:7:0"
+                    },
+                    "referencedDeclaration": 26,
+                    "src": "632:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Message_$26_storage_ptr",
+                      "typeString": "struct Database.Message"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Group",
+            "nameLocation": "401:5:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "394:262:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 54,
+            "mutability": "mutable",
+            "name": "userList",
+            "nameLocation": "687:8:0",
+            "nodeType": "VariableDeclaration",
+            "scope": 61,
+            "src": "662:33:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$16_storage_$",
+              "typeString": "mapping(address => struct Database.User)"
+            },
+            "typeName": {
+              "id": 53,
+              "keyType": {
+                "id": 50,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "670:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "662:24:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$16_storage_$",
+                "typeString": "mapping(address => struct Database.User)"
+              },
+              "valueType": {
+                "id": 52,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 51,
+                  "name": "User",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 16,
+                  "src": "681:4:0"
+                },
+                "referencedDeclaration": 16,
+                "src": "681:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_User_$16_storage_ptr",
+                  "typeString": "struct Database.User"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 60,
+            "mutability": "mutable",
+            "name": "allMessages",
+            "nameLocation": "731:11:0",
+            "nodeType": "VariableDeclaration",
+            "scope": 61,
+            "src": "701:41:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_array$_t_struct$_Message_$26_storage_$dyn_storage_$",
+              "typeString": "mapping(bytes32 => struct Database.Message[])"
+            },
+            "typeName": {
+              "id": 59,
+              "keyType": {
+                "id": 55,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "709:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "701:29:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_array$_t_struct$_Message_$26_storage_$dyn_storage_$",
+                "typeString": "mapping(bytes32 => struct Database.Message[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 57,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 56,
+                    "name": "Message",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 26,
+                    "src": "720:7:0"
+                  },
+                  "referencedDeclaration": 26,
+                  "src": "720:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Message_$26_storage_ptr",
+                    "typeString": "struct Database.Message"
+                  }
+                },
+                "id": 58,
+                "nodeType": "ArrayTypeName",
+                "src": "720:9:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Message_$26_storage_$dyn_storage_ptr",
+                  "typeString": "struct Database.Message[]"
+                }
+              }
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 62,
+        "src": "33:713:0",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:746:0"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/src/contracts/Database.sol",
+    "exportedSymbols": {
+      "Database": [
+        61
+      ]
+    },
+    "id": 62,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.7",
+          ".0",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:31:0"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "Database",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 61,
+        "linearizedBaseContracts": [
+          61
+        ],
+        "name": "Database",
+        "nameLocation": "42:8:0",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Database.User",
+            "id": 16,
+            "members": [
+              {
+                "constant": false,
+                "id": 3,
+                "mutability": "mutable",
+                "name": "userName",
+                "nameLocation": "87:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "80:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 2,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "80:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 5,
+                "mutability": "mutable",
+                "name": "about",
+                "nameLocation": "112:5:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "105:12:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 4,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "105:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 7,
+                "mutability": "mutable",
+                "name": "userId",
+                "nameLocation": "134:6:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "127:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 6,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "127:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 9,
+                "mutability": "mutable",
+                "name": "profilePhoto",
+                "nameLocation": "157:12:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "150:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 8,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "150:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 11,
+                "mutability": "mutable",
+                "name": "ethereumAddress",
+                "nameLocation": "187:15:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "179:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 10,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "179:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 15,
+                "mutability": "mutable",
+                "name": "friendList",
+                "nameLocation": "221:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 16,
+                "src": "212:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Friend_$19_storage_$dyn_storage_ptr",
+                  "typeString": "struct Database.Friend[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 13,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 12,
+                      "name": "Friend",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 19,
+                      "src": "212:6:0"
+                    },
+                    "referencedDeclaration": 19,
+                    "src": "212:6:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Friend_$19_storage_ptr",
+                      "typeString": "struct Database.Friend"
+                    }
+                  },
+                  "id": 14,
+                  "nodeType": "ArrayTypeName",
+                  "src": "212:8:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_Friend_$19_storage_$dyn_storage_ptr",
+                    "typeString": "struct Database.Friend[]"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "User",
+            "nameLocation": "65:4:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "58:180:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Friend",
+            "id": 19,
+            "members": [
+              {
+                "constant": false,
+                "id": 18,
+                "mutability": "mutable",
+                "name": "friendId",
+                "nameLocation": "275:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 19,
+                "src": "268:15:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 17,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "268:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Friend",
+            "nameLocation": "251:6:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "244:46:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Message",
+            "id": 26,
+            "members": [
+              {
+                "constant": false,
+                "id": 21,
+                "mutability": "mutable",
+                "name": "sender",
+                "nameLocation": "329:6:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "321:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 20,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "321:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 23,
+                "mutability": "mutable",
+                "name": "messageId",
+                "nameLocation": "352:9:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "345:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 22,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "345:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 25,
+                "mutability": "mutable",
+                "name": "msg",
+                "nameLocation": "378:3:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 26,
+                "src": "371:10:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 24,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "371:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Message",
+            "nameLocation": "303:7:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "296:92:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "Database.Group",
+            "id": 49,
+            "members": [
+              {
+                "constant": false,
+                "id": 28,
+                "mutability": "mutable",
+                "name": "groupName",
+                "nameLocation": "424:9:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "417:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 27,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "417:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30,
+                "mutability": "mutable",
+                "name": "groupId",
+                "nameLocation": "450:7:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "443:14:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 29,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "443:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 32,
+                "mutability": "mutable",
+                "name": "groupAbout",
+                "nameLocation": "474:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "467:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 31,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "467:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 34,
+                "mutability": "mutable",
+                "name": "groupPhoto",
+                "nameLocation": "501:10:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "494:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 33,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "494:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 36,
+                "mutability": "mutable",
+                "name": "admin",
+                "nameLocation": "529:5:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "521:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 35,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "521:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 39,
+                "mutability": "mutable",
+                "name": "membersArray",
+                "nameLocation": "554:12:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "544:22:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                  "typeString": "address[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "id": 37,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "544:7:0",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 38,
+                  "nodeType": "ArrayTypeName",
+                  "src": "544:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
+                    "typeString": "address[]"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 43,
+                "mutability": "mutable",
+                "name": "members",
+                "nameLocation": "599:7:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "576:30:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                  "typeString": "mapping(address => bool)"
+                },
+                "typeName": {
+                  "id": 42,
+                  "keyType": {
+                    "id": 40,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "584:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "576:22:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_address_$_t_bool_$",
+                    "typeString": "mapping(address => bool)"
+                  },
+                  "valueType": {
+                    "id": 41,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "593:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 48,
+                "mutability": "mutable",
+                "name": "messages",
+                "nameLocation": "641:8:0",
+                "nodeType": "VariableDeclaration",
+                "scope": 49,
+                "src": "616:33:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Message_$26_storage_$",
+                  "typeString": "mapping(uint256 => struct Database.Message)"
+                },
+                "typeName": {
+                  "id": 47,
+                  "keyType": {
+                    "id": 44,
+                    "name": "uint",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "624:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "Mapping",
+                  "src": "616:24:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_mapping$_t_uint256_$_t_struct$_Message_$26_storage_$",
+                    "typeString": "mapping(uint256 => struct Database.Message)"
+                  },
+                  "valueType": {
+                    "id": 46,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 45,
+                      "name": "Message",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 26,
+                      "src": "632:7:0"
+                    },
+                    "referencedDeclaration": 26,
+                    "src": "632:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Message_$26_storage_ptr",
+                      "typeString": "struct Database.Message"
+                    }
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Group",
+            "nameLocation": "401:5:0",
+            "nodeType": "StructDefinition",
+            "scope": 61,
+            "src": "394:262:0",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 54,
+            "mutability": "mutable",
+            "name": "userList",
+            "nameLocation": "687:8:0",
+            "nodeType": "VariableDeclaration",
+            "scope": 61,
+            "src": "662:33:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$16_storage_$",
+              "typeString": "mapping(address => struct Database.User)"
+            },
+            "typeName": {
+              "id": 53,
+              "keyType": {
+                "id": 50,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "670:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "662:24:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_User_$16_storage_$",
+                "typeString": "mapping(address => struct Database.User)"
+              },
+              "valueType": {
+                "id": 52,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 51,
+                  "name": "User",
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 16,
+                  "src": "681:4:0"
+                },
+                "referencedDeclaration": 16,
+                "src": "681:4:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_User_$16_storage_ptr",
+                  "typeString": "struct Database.User"
+                }
+              }
+            },
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 60,
+            "mutability": "mutable",
+            "name": "allMessages",
+            "nameLocation": "731:11:0",
+            "nodeType": "VariableDeclaration",
+            "scope": 61,
+            "src": "701:41:0",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_array$_t_struct$_Message_$26_storage_$dyn_storage_$",
+              "typeString": "mapping(bytes32 => struct Database.Message[])"
+            },
+            "typeName": {
+              "id": 59,
+              "keyType": {
+                "id": 55,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "709:7:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "701:29:0",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_array$_t_struct$_Message_$26_storage_$dyn_storage_$",
+                "typeString": "mapping(bytes32 => struct Database.Message[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 57,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 56,
+                    "name": "Message",
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 26,
+                    "src": "720:7:0"
+                  },
+                  "referencedDeclaration": 26,
+                  "src": "720:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Message_$26_storage_ptr",
+                    "typeString": "struct Database.Message"
+                  }
+                },
+                "id": 58,
+                "nodeType": "ArrayTypeName",
+                "src": "720:9:0",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Message_$26_storage_$dyn_storage_ptr",
+                  "typeString": "struct Database.Message[]"
+                }
+              }
+            },
+            "visibility": "internal"
+          }
+        ],
+        "scope": 62,
+        "src": "33:713:0",
+        "usedErrors": []
+      }
+    ],
+    "src": "0:746:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.13+commit.abaa5c0e.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xcc511F8423aB89491D84A0Db9d7064aF1B12fE93",
+      "transactionHash": "0x862176ba45d26b405455427abcd9a6ca7258dba1ea365ad41723c1307ca9dfe7"
+    }
+  },
+  "schemaVersion": "3.4.6",
+  "updatedAt": "2022-03-28T18:18:06.295Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
