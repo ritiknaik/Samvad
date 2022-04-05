@@ -18,7 +18,7 @@ export function AddNewChat(props) {
       }}
     >
       <Button variant="success" className="mb-2" onClick={handleShow}>
-        + NewChat
+        + Add Chat
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

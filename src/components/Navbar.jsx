@@ -10,7 +10,7 @@ export function NavBar(props) {
         <Navbar.Text>
           <Button
             style={{ display: props.showButton }}
-            variant="success"
+            variant="info"
             onClick={async () => {
               props.login();
             }}
