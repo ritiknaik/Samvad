@@ -25,6 +25,7 @@ export function App(props) {
   const [activeChatMessages, setActiveChatMessages] = useState(null);
   const [showConnectButton, setShowConnectButton] = useState("block");
   const [myContract, setMyContract] = useState(null);
+  const [image, setImage] = useState(null)
 
   const contractABI = abi;
   let provider;
@@ -65,6 +66,7 @@ export function App(props) {
       alert("Couldn't connect to Metamask");
     }
   }
+
 
   async function connectToMetamask() {
     try {
@@ -204,7 +206,7 @@ export function App(props) {
           </div>
         </Col>
         <Col xs={8} style={{ paddingLeft: "0px" }}>
-          <div style={{ backgroundColor: "#BAE7F3", height: "100%" }}>
+          <div style={{ backgroundColor: "#BAE7F3", backgroundImage: `${process.env.PUBLIC_URL}/more-options-icon-10.jpg`, height: "100%" }}>
             <Row style={{ marginRight: "0px" }}>
               <Card
                 style={{

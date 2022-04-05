@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Navbar } from "react-bootstrap";
+import { Example } from "./Example";
 
 export function NavBar(props) {
   return (
@@ -7,7 +8,9 @@ export function NavBar(props) {
       <Navbar.Brand href="#home">Samvad</Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
+        <Example />
         <Navbar.Text>
+
           <Button
             style={{ display: props.showButton }}
             variant="info"
@@ -20,7 +23,7 @@ export function NavBar(props) {
           <div
             style={{ display: props.showButton === "none" ? "block" : "none" }}
           >
-            Signed in as:
+            Signed in as: 
             <a href="#">{props.username}</a>
           </div>
         </Navbar.Text>
