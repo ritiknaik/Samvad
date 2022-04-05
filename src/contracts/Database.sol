@@ -29,10 +29,10 @@ contract Database {
         string groupAbout;
         string groupPhoto;
         address admin;
-        uint replyCount;
+        //uint replyCount;
         address[] membersArray;
+        Message[] messages;
         mapping(address=>bool) members;
-        mapping(uint => Message) messages;
     }
 
     Group[] public allGroups;
@@ -137,10 +137,13 @@ contract Database {
 
     function sendMessageGroup(uint channelIndex, string calldata _msg) external {
         Message memory newMsg = Message(0, msg.sender, _msg, block.timestamp);
-        uint currReplyIndex = allGroups[channelIndex].replyCount;
-        allGroups[channelIndex].messages[currReplyIndex] = newMsg;
+        //uint currReplyIndex = allGroups[channelIndex].replyCount;
+        allGroups[channelIndex].messages.push(newMsg);
 
-        allGroups[channelIndex].replyCount++;
+        //allGroups[channelIndex].replyCount++;
     }
 
+    function readMessageGroup(uint channelIndex) external view returns(Message[] memory) {
+        return allGroups[channelIndex].messages;
+    }
 }

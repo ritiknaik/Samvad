@@ -6,6 +6,9 @@ export function AddNewChat(props) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [showGroup, setShowGroup] = useState(false);
+  const handleCloseGroup = () => setShowGroup(false);
+  const handleShowGroup = () => setShowGroup(true);
   return (
     <div
       className="AddNewChat"
@@ -17,8 +20,11 @@ export function AddNewChat(props) {
         width: "97%",
       }}
     >
-      <Button variant="success" className="mb-2" onClick={handleShow}>
+      <Button variant="success" className="mb-2" onClick={handleShow} style={{marginLeft: "90px"}}>
         + Add Chat
+      </Button>
+      <Button variant="success" className="mb-2" onClick={handleShowGroup} style={{marginLeft: "35px"}}>
+        + Create Group
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -59,6 +65,49 @@ export function AddNewChat(props) {
             }}
           >
             Add Friend
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showGroup} onHide={handleCloseGroup}>
+        <Modal.Header closeButton>
+          <Modal.Title> Create Group </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group>
+            <Form.Control
+              required
+              id="groupName"
+              size="text"
+              type="text"
+              placeholder="Enter Group Name"
+            />
+            <br />
+            <Form.Control
+              required
+              id="groupAbout"
+              size="text"
+              type="text"
+              placeholder="Enter Group About"
+            />
+            <br />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseGroup}>
+            Close
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              props.addGroupHandler(
+                document.getElementById("groupName").value,
+                document.getElementById("groupAbout").value
+              );
+              handleClose();
+            }}
+          >
+            Make Group
           </Button>
         </Modal.Footer>
       </Modal>

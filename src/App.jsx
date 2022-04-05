@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import {
   NavBar,
   ChatCard,
+  GroupCard,
   Message,
   AddNewChat,
 } from "./components/Components.js";
@@ -16,6 +17,7 @@ const CONTRACT_ADDRESS = "0xaDbB6f2b8d07531f5e7b63192f4931dee6e40D5d";
 
 export function App(props) {
   const [friends, setFriends] = useState(null);
+  const [Groups, setGroups] = useState(null);
   const [myName, setMyName] = useState(null);
   const [myPublicKey, setMyPublicKey] = useState(null);
   const [activeChat, setActiveChat] = useState({
@@ -98,6 +100,27 @@ export function App(props) {
     }
   }
 
+  async function addGroup(name, about) {
+    // try {
+    //   let present = await myContract.checkUserExists(publicKey);
+    //   if (!present) {
+    //     alert("Address not found: Ask them to join the app :)");
+    //     return;
+    //   }
+      try {
+        await myContract.addGroup(name, about);
+        const Grp = { groupName: name, groupAbout: about };
+        setGroups(Groups.concat(Grp));
+      } catch (err) {
+        alert(
+          "Group already added! You can't create two Group with same name"
+        );
+      }
+    // } catch (err) {
+    //   alert("Invalid address!");
+    // }
+  }
+
   async function sendMessage(data) {
     if (!(activeChat && activeChat.publicKey)) return;
     const recieverAddress = activeChat.publicKey;
@@ -105,6 +128,25 @@ export function App(props) {
   }
 
   async function getMessage(friendsPublicKey) {
+    let nickname;
+    let messages = [];
+    friends.forEach((item) => {
+      if (item.publicKey === friendsPublicKey) nickname = item.name;
+    });
+    const data = await myContract.readMessage(friendsPublicKey);
+    data.forEach((item) => {
+      const timestamp = new Date(1000 * Number(item[1])).toUTCString();
+      messages.push({
+        publicKey: item[0],
+        timeStamp: timestamp,
+        data: item[2],
+      });
+    });
+    setActiveChat({ friendname: nickname, publicKey: friendsPublicKey });
+    setActiveChatMessages(messages);
+  }
+
+  async function getGroupMessage(friendsPublicKey) {
     let nickname;
     let messages = [];
     friends.forEach((item) => {
@@ -171,6 +213,18 @@ export function App(props) {
       })
     : null;
 
+  const groupChats = Groups
+    ? friends.map((Group) => {
+        return (
+          <ChatCard
+            name={Group.groupName}
+            about={Group.groupAbout}
+            getGroupMessages={(key) => getGroupMessage(key)}
+          />
+        );
+      })
+    : null;
+
   return (
     <div style={{ padding: "0px", border: "1px solid grey" }}>
       <NavBar
@@ -199,9 +253,11 @@ export function App(props) {
               </Card>
             </Row>
             {chats}
+            {groupChats}
             <AddNewChat
               myContract={myContract}
               addHandler={(name, publicKey) => addChat(name, publicKey)}
+              addGroupHandler={(name, about)=> addGroup(name, about)}
             />
           </div>
         </Col>
