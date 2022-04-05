@@ -5,7 +5,7 @@ export function Message(props) {
   return (
     <Row style={{ marginRight: "0px" }}>
       <Card
-        border="success"
+        border="primary"
         style={{
           width: "80%",
           alignSelf: "center",

@@ -253,7 +253,7 @@ export function App(props) {
                 }}
               >
                 <Form.Row className="align-items-center">
-                  <Col xs={9}>
+                  <Col xs={10}>
                     <Form.Control
                       id="messageData"
                       className="mb-2"

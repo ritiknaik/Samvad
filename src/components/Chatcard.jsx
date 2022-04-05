@@ -6,7 +6,7 @@ export function ChatCard(props) {
   return (
     <Row style={{ marginRight: "0px" }}>
       <Card
-        border="success"
+        border="primary"
         style={{ width: "100%", alignSelf: "center", marginLeft: "15px" }}
         onClick={() => {
           props.getMessages(props.publicKey);
