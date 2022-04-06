@@ -1,12 +1,16 @@
 import React from "react";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { UploadWallpaper } from "./UploadWallpaper"
 
-export function Example() {
+export function Example(props) {
     const [show, setShow] = useState(false);
-  
+    const [showwall, setShowWall] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleCloseWall = () => setShowWall(false);
+    const handleShowWall = () => setShowWall(true);
+    // const [imageUrl, setImageUrl] = useState("");
   
     return (
       <>
@@ -22,7 +26,11 @@ export function Example() {
           </Modal.Header>
           
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" 
+                    onClick={() => {
+                      handleClose();
+                      handleShowWall();
+                    }}>
               Change wallpaper
             </Button>
             <Button variant="secondary" onClick={handleClose}>
@@ -31,6 +39,18 @@ export function Example() {
             <Button variant="secondary" onClick={handleClose}>
               Update About
             </Button>
+          </Modal.Footer>
+        </Modal>
+
+        <Modal show={showwall} onHide={handleCloseWall}>
+          <Modal.Header closeButton>
+            <Modal.Title>Upload Wallpaper</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <UploadWallpaper 
+            imageUrl={props.imageUrl}
+            setImageUrlHandler={(imageUrl) => props.setImageUrlHandler(imageUrl)}/>
+              
           </Modal.Footer>
         </Modal>
       </>

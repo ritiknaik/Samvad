@@ -8,7 +8,7 @@ export function NavBar(props) {
       <Navbar.Brand href="#home">Samvad</Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
-        <Example />
+        <Example {...props}/>
         <Navbar.Text>
 
           <Button

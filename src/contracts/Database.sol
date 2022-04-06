@@ -10,6 +10,7 @@ contract Database {
         address ethereumAddress;
         Friend[] friendList;
         Group[] groupList;
+        Settings settings;
     }
 
     struct Friend {
@@ -18,7 +19,6 @@ contract Database {
     }
 
     struct Message {
-        //uint messageType; 
         address sender;
         uint256 timestamp;
         string data;
@@ -26,14 +26,16 @@ contract Database {
 
     struct Group {
         string groupName;
-        //string groupId;
         string groupAbout;
         string groupPhoto;
         address admin;
-        //uint replyCount;
         address[] membersArray;
         Message[] messages;
-        //mapping(address=>bool) members;
+    }
+
+    struct Settings{
+        string wallpaper;
+        bool theme;
     }
 
     //Group[] public allGroups;
@@ -112,14 +114,14 @@ contract Database {
 
     //Group functions
     function addGroup(string memory name, string memory about) public {
-        
+        require(checkUserExists(msg.sender), "Create an account first!");
         uint n = userList[msg.sender].groupList.length;
         userList[msg.sender].groupList[n].groupName = name;
         userList[msg.sender].groupList[n].admin = msg.sender;
         userList[msg.sender].groupList[n].groupAbout = about;
         userList[msg.sender].groupList[n].groupPhoto = "";
-        //userList[msg.sender].groupList[n].groupId = "";
-        userList[msg.sender].groupList[n].membersArray.push(msg.sender);
+        uint m = userList[msg.sender].groupList[n].membersArray.length;
+        userList[msg.sender].groupList[n].membersArray[m] = msg.sender;
     }
     
     function getMyGroupList() external view returns(Group[] memory) {
@@ -130,7 +132,6 @@ contract Database {
         require(checkUserExists(msg.sender), "Create an account first!");
         require(checkUserExists(newMember), "User is not registered!");
         require(msg.sender!=newMember, "Users cannot add yourself again!");
-        //require(checkAlreadyFriends(msg.sender,newMember)==true, "These users are not friends!");
         uint i = 0;
         for(i = 0; i < userList[me].groupList.length; ++i){
             if(keccak256(abi.encodePacked(userList[me].groupList[i].groupName)) == keccak256(abi.encodePacked(name))){

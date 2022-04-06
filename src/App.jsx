@@ -7,13 +7,15 @@ import {
   GroupCard,
   Message,
   AddNewChat,
+  Emoji,
 } from "./components/Components.js";
 import { ethers } from "ethers";
 import file from "./truffle_abis/Database.json";
+import { url } from "react-inspector";
 
 let abi = file.abi;
 // Add the contract address inside the quotes
-const CONTRACT_ADDRESS = "0x0776f524868725D4B1Ab90024C1fB22CBce149E1";
+const CONTRACT_ADDRESS = "0x0617021B16F24420A97CEbF83Ce4D65fEE0af768";
 
 export function App(props) {
   const [friends, setFriends] = useState(null);
@@ -27,7 +29,7 @@ export function App(props) {
   const [activeChatMessages, setActiveChatMessages] = useState(null);
   const [showConnectButton, setShowConnectButton] = useState("block");
   const [myContract, setMyContract] = useState(null);
-  const [image, setImage] = useState(null)
+  const [imageUrl, setImageUrl] = useState("")
 
   const contractABI = abi;
   let provider;
@@ -57,6 +59,8 @@ export function App(props) {
           if (username === "") username = "Guest";
           await contract.createAccount(username);
         }
+        // let wallpaper = await contract.getMyWallpaper();
+        // if(wallpaper) setImageUrl(wallpaper);
         setMyName(username);
         setMyPublicKey(address);
         setShowConnectButton("none");
@@ -101,15 +105,15 @@ export function App(props) {
   }
 
   async function addGroup(name, about) {
-    // try {
-    //   let present = await myContract.checkUserExists(publicKey);
-    //   if (!present) {
-    //     alert("Address not found: Ask them to join the app :)");
-    //     return;
-    //   }
       try {
+        console.log("before contract");
         await myContract.addGroup(name, about);
-        const Grp = { groupName: name, groupAbout: about };
+        console.log("aftere contract");
+        // const data = await myContract.getMyGroupList();
+        // data.forEach((item) => {
+        //   console.log(item[0], item[1]);
+        // });
+        const Grp = { groupName: name, groupAbout: about};
         console.log(Grp);
         setGroups(Groups.concat(Grp));
       } catch (err) {
@@ -118,9 +122,6 @@ export function App(props) {
           "Group already added! You can't create two Group with same name"
         );
       }
-    // } catch (err) {
-    //   alert("Invalid address!");
-    // }
   }
 
   async function sendMessage(data) {
@@ -251,7 +252,15 @@ export function App(props) {
         username={myName}
         login={async () => login()}
         showButton={showConnectButton}
+        imageUrl={imageUrl}
+        setImageUrlHandler={(imageUrl)=>{
+          setImageUrl(imageUrl);
+          // setWallpaper(imageUrl);
+        }}
       />
+      {/* <a href={imageUrl} target="_blank" rel="noopener noreferrer">
+                {imageUrl}
+              </a> */}
       <Row>
         <Col style={{ paddingRight: "0px", borderRight: "2px solid #000000", height: "800px" }}>
           <div
@@ -277,12 +286,12 @@ export function App(props) {
             <AddNewChat
               myContract={myContract}
               addHandler={(name, publicKey) => addChat(name, publicKey)}
-              addGroupHandler={(name, about)=> addGroup(name, about)}
+              addGroupHandler={( groupName, groupAbout)=> addGroup( groupName, groupAbout)}
             />
           </div>
         </Col>
         <Col xs={8} style={{ paddingLeft: "0px" }}>
-          <div style={{ backgroundColor: "#BAE7F3", backgroundImage: `${process.env.PUBLIC_URL}/more-options-icon-10.jpg`, height: "100%" }}>
+          <div style={{ backgroundColor: "#BAE7F3", backgroundImage: `url(${imageUrl})`, height: "100%", width: "100%" }}>
             <Row style={{ marginRight: "0px" }}>
               <Card
                 style={{
@@ -337,8 +346,10 @@ export function App(props) {
                       className="mb-2"
                       placeholder="Send Message"
                     />
+                    {/* <Emoji /> */}
                   </Col>
                   <Col>
+
                     <Button
                       className="mb-2"
                       variant="dark"

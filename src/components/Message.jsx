@@ -7,6 +7,7 @@ export function Message(props) {
       <Card
         border="primary"
         style={{
+          borderRadius: "30px",
           width: "80%",
           alignSelf: "center",
           margin: "0 0 5px " + props.marginLeft,
@@ -15,7 +16,7 @@ export function Message(props) {
         }}
       >
         <Card.Body>
-          <h6 style={{ float: "right" }}>{props.timeStamp}</h6>
+          <h6 style={{ float: "right", fontSize: 15 }}>{props.timeStamp}</h6>
           <Card.Subtitle>
             <b>{props.sender}</b>
           </Card.Subtitle>
