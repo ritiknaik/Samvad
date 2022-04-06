@@ -314,7 +314,7 @@ export function App(props) {
                 }}
               >
                 <Card.Header>
-                  {activeChat.friendname} : {"Sometimes you win sometimes you learn"}
+                  {activeChat.friendname} : {activeChat.publicKey}
                   <Button
                     style={{ float: "right" }}
                     variant="warning"
