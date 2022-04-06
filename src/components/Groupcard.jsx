@@ -9,16 +9,14 @@ export function GroupCard(props) {
         border="primary"
         style={{ width: "100%", alignSelf: "center", marginLeft: "15px" }}
         onClick={() => {
-          props.getMessages(props.publicKey);
+          props.getGroupMessages(props.name);
         }}
       >
         <Card.Body>
           <Card.Title> {props.name} </Card.Title>
           <Card.Subtitle>
             {" "}
-            {props.publicKey.length > 20
-              ? props.publicKey.substring(0, 20) + " ..."
-              : props.publicKey}{" "}
+            {props.about}{" "}
           </Card.Subtitle>
         </Card.Body>
       </Card>

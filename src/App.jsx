@@ -13,7 +13,7 @@ import file from "./truffle_abis/Database.json";
 
 let abi = file.abi;
 // Add the contract address inside the quotes
-const CONTRACT_ADDRESS = "0xaDbB6f2b8d07531f5e7b63192f4931dee6e40D5d";
+const CONTRACT_ADDRESS = "0x0776f524868725D4B1Ab90024C1fB22CBce149E1";
 
 export function App(props) {
   const [friends, setFriends] = useState(null);
@@ -110,8 +110,10 @@ export function App(props) {
       try {
         await myContract.addGroup(name, about);
         const Grp = { groupName: name, groupAbout: about };
+        console.log(Grp);
         setGroups(Groups.concat(Grp));
       } catch (err) {
+        console.log(err);
         alert(
           "Group already added! You can't create two Group with same name"
         );
@@ -135,7 +137,7 @@ export function App(props) {
     });
     const data = await myContract.readMessage(friendsPublicKey);
     data.forEach((item) => {
-      const timestamp = new Date(1000 * Number(item[1])).toUTCString();
+      const timestamp = new Date(1000 * item[1]).toUTCString();
       messages.push({
         publicKey: item[0],
         timeStamp: timestamp,
@@ -145,23 +147,23 @@ export function App(props) {
     setActiveChat({ friendname: nickname, publicKey: friendsPublicKey });
     setActiveChatMessages(messages);
   }
-
-  async function getGroupMessage(friendsPublicKey) {
+//this one
+  async function getGroupMessage(myPublicKey, name) {
     let nickname;
     let messages = [];
-    friends.forEach((item) => {
-      if (item.publicKey === friendsPublicKey) nickname = item.name;
+    Groups.forEach((item) => {
+      if (item.groupName === name) nickname = item.groupName;
     });
-    const data = await myContract.readMessage(friendsPublicKey);
+    const data = await myContract.readMessageGroup(myPublicKey, name);
     data.forEach((item) => {
-      const timestamp = new Date(1000 * Number(item[1])).toUTCString();
+      let timestamp = new Date(1000 * item[1]).toUTCString();
       messages.push({
         publicKey: item[0],
         timeStamp: timestamp,
         data: item[2],
       });
     });
-    setActiveChat({ friendname: nickname, publicKey: friendsPublicKey });
+    setActiveChat({ friendname: nickname, publicKey: myPublicKey });
     setActiveChatMessages(messages);
   }
 
@@ -180,6 +182,22 @@ export function App(props) {
       setFriends(friendList);
     }
     loadFriends();
+  }, [myPublicKey, myContract]);
+
+  useEffect(() => {
+    async function loadGroups() {
+      let groupList = [];
+      try {
+        const data = await myContract.getMyGroupList();
+        data.forEach((item) => {
+          groupList.push({ publicKey: item[0], name: item[1] });
+        });
+      } catch (err) {
+        groupList = null;
+      }
+      setGroups(groupList);
+    }
+    loadGroups();
   }, [myPublicKey, myContract]);
 
   const Messages = activeChatMessages
@@ -214,12 +232,14 @@ export function App(props) {
     : null;
 
   const groupChats = Groups
-    ? friends.map((Group) => {
+    ? Groups.map((Group) => {
+        let index = Groups.indexOf(Group);
+        let name = Group.groupName;
         return (
-          <ChatCard
-            name={Group.groupName}
+          <GroupCard
+            name={name}
             about={Group.groupAbout}
-            getGroupMessages={(key) => getGroupMessage(key)}
+            getGroupMessages={(myPublicKey, name) => getGroupMessage(myPublicKey, name)}
           />
         );
       })
@@ -233,7 +253,7 @@ export function App(props) {
         showButton={showConnectButton}
       />
       <Row>
-        <Col style={{ paddingRight: "0px", borderRight: "2px solid #000000", height: "844px" }}>
+        <Col style={{ paddingRight: "0px", borderRight: "2px solid #000000", height: "800px" }}>
           <div
             style={{
               backgroundColor: "#BAE7F3",
@@ -288,7 +308,7 @@ export function App(props) {
             </Row>
             <div
               className="MessageBox"
-              style={{ height: "690px", overflowY: "auto" }}
+              style={{ height: "646px", overflowY: "auto" }}
             >
               {Messages}
             </div>

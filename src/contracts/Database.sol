@@ -9,6 +9,7 @@ contract Database {
         string profilePhoto;
         address ethereumAddress;
         Friend[] friendList;
+        Group[] groupList;
     }
 
     struct Friend {
@@ -17,25 +18,25 @@ contract Database {
     }
 
     struct Message {
-        uint messageType; 
+        //uint messageType; 
         address sender;
+        uint256 timestamp;
         string data;
-        uint timestamp;
     }
 
     struct Group {
         string groupName;
-        string groupId;
+        //string groupId;
         string groupAbout;
         string groupPhoto;
         address admin;
         //uint replyCount;
         address[] membersArray;
         Message[] messages;
-        mapping(address=>bool) members;
+        //mapping(address=>bool) members;
     }
 
-    Group[] public allGroups;
+    //Group[] public allGroups;
     mapping(address => User) userList;
     mapping(bytes32 => Message[]) allMessages;
 
@@ -79,7 +80,7 @@ contract Database {
     }
 
     function _addFriend(address me, address friend_key, string memory userName) internal {
-        Friend memory newFriend = Friend(friend_key,userName);
+        Friend memory newFriend = Friend(friend_key, userName);
         userList[me].friendList.push(newFriend);
     }
 
@@ -100,7 +101,7 @@ contract Database {
         require(checkAlreadyFriends(msg.sender,friend_key), "You are not friends with the given user");
 
         bytes32 chatCode = _getChatCode(msg.sender, friend_key);
-        Message memory newMsg = Message(0, msg.sender, _msg, block.timestamp);
+        Message memory newMsg = Message(msg.sender, block.timestamp, _msg);
         allMessages[chatCode].push(newMsg);
     }
 
@@ -108,42 +109,73 @@ contract Database {
         bytes32 chatCode = _getChatCode(msg.sender, friend_key);
         return allMessages[chatCode];
     }
-    
+
+    //Group functions
     function addGroup(string memory name, string memory about) public {
-        Group storage newGroup = allGroups.push();
         
-        newGroup.groupName = name;
-        newGroup.admin= msg.sender;
-        newGroup.groupAbout= about;
-        newGroup.groupPhoto= "";
-        newGroup.groupId= "";
-        newGroup.membersArray= new address[](0);
-        
-        allGroups[allGroups.length - 1].members[msg.sender] = true;
-        allGroups[allGroups.length - 1].membersArray.push(msg.sender);
+        uint n = userList[msg.sender].groupList.length;
+        userList[msg.sender].groupList[n].groupName = name;
+        userList[msg.sender].groupList[n].admin = msg.sender;
+        userList[msg.sender].groupList[n].groupAbout = about;
+        userList[msg.sender].groupList[n].groupPhoto = "";
+        //userList[msg.sender].groupList[n].groupId = "";
+        userList[msg.sender].groupList[n].membersArray.push(msg.sender);
+    }
+    
+    function getMyGroupList() external view returns(Group[] memory) {
+        return userList[msg.sender].groupList;
     }
 
-    function addGroupMembers(uint channelIndex, address newMember) public {
-        require (allGroups[channelIndex].admin == msg.sender);
-            allGroups[channelIndex].members[newMember] = true;
-            allGroups[channelIndex].membersArray.push(newMember);
+    function addGroupMembers(address me, string memory name, address newMember) public {
+        require(checkUserExists(msg.sender), "Create an account first!");
+        require(checkUserExists(newMember), "User is not registered!");
+        require(msg.sender!=newMember, "Users cannot add yourself again!");
+        //require(checkAlreadyFriends(msg.sender,newMember)==true, "These users are not friends!");
+        uint i = 0;
+        for(i = 0; i < userList[me].groupList.length; ++i){
+            if(keccak256(abi.encodePacked(userList[me].groupList[i].groupName)) == keccak256(abi.encodePacked(name))){
+                break;
+            }
+        }
+        require(userList[me].groupList[i].admin == msg.sender, "You are not an admin of this group");
+        userList[me].groupList[i].membersArray.push(newMember);
     }
 
-    function removeGroupMembers(uint channelIndex, address memberToRemove, uint memberIndex) public {
-        require (allGroups[channelIndex].admin == msg.sender);
-            allGroups[channelIndex].members[memberToRemove] = false;
-            delete allGroups[channelIndex].membersArray[memberIndex];
+    function removeGroupMembers(address me, string memory name, address memberToRemove) public {
+        uint i = 0;
+        for(i = 0; i < userList[me].groupList.length; ++i){
+            if(keccak256(abi.encodePacked(userList[me].groupList[i].groupName)) == keccak256(abi.encodePacked(name))){
+                break;
+            }
+        }
+        require(userList[me].groupList[i].admin == msg.sender, "You are not admin");
+        uint j = 0;
+        for(j = 0; j < userList[me].groupList[i].membersArray.length; ++j){
+            if(userList[me].groupList[i].membersArray[j] == memberToRemove){
+                break;
+            }
+        }
+        delete userList[me].groupList[i].membersArray[j];
     }
 
-    function sendMessageGroup(uint channelIndex, string calldata _msg) external {
-        Message memory newMsg = Message(0, msg.sender, _msg, block.timestamp);
-        //uint currReplyIndex = allGroups[channelIndex].replyCount;
-        allGroups[channelIndex].messages.push(newMsg);
-
-        //allGroups[channelIndex].replyCount++;
+    function sendMessageGroup(address me, string memory name, string calldata _msg) external {
+        uint i = 0;
+        for(i = 0; i < userList[me].groupList.length; ++i){
+            if(keccak256(abi.encodePacked(userList[me].groupList[i].groupName)) == keccak256(abi.encodePacked(name))){
+                break;
+            }
+        }
+        Message memory newMsg = Message(msg.sender, block.timestamp, _msg);
+        userList[me].groupList[i].messages.push(newMsg);
     }
 
-    function readMessageGroup(uint channelIndex) external view returns(Message[] memory) {
-        return allGroups[channelIndex].messages;
+    function readMessageGroup(address me, string memory name) external view returns(Message[] memory) {
+        uint i = 0;
+        for(i = 0; i < userList[me].groupList.length; ++i){
+            if(keccak256(abi.encodePacked(userList[me].groupList[i].groupName)) == keccak256(abi.encodePacked(name))){
+                break;
+            }
+        }
+        return userList[me].groupList[i].messages;
     }
 }

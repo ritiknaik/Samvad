@@ -104,7 +104,7 @@ export function AddNewChat(props) {
                 document.getElementById("groupName").value,
                 document.getElementById("groupAbout").value
               );
-              handleClose();
+              handleCloseGroup();
             }}
           >
             Make Group
