@@ -59,11 +59,11 @@ export function App(props) {
           if (username === "") username = "Guest";
           await contract.createAccount(username);
         }
-        // let wallpaper = await contract.getMyWallpaper();
-        // if(wallpaper) setImageUrl(wallpaper);
         setMyName(username);
         setMyPublicKey(address);
         setShowConnectButton("none");
+        let wallpaper = await contract.getMyWallpaper();
+        if(wallpaper) setImageUrl(wallpaper);
       } catch (err) {
         console.log(err);
         alert("CONTRACT_ADDRESS not set properly!");
@@ -168,6 +168,19 @@ export function App(props) {
     setActiveChatMessages(messages);
   }
 
+  async function setWallpaper(imageUrl) {
+    
+    try {
+      await myContract.setWallpaper(imageUrl);
+    } catch (err) {
+      console.log(err);
+      alert(
+        "Unable to set wallpaper on contract"
+      );
+    }
+  
+  }
+
   useEffect(() => {
     async function loadFriends() {
       let friendList = [];
@@ -255,7 +268,7 @@ export function App(props) {
         imageUrl={imageUrl}
         setImageUrlHandler={(imageUrl)=>{
           setImageUrl(imageUrl);
-          // setWallpaper(imageUrl);
+          setWallpaper(imageUrl);
         }}
       />
       {/* <a href={imageUrl} target="_blank" rel="noopener noreferrer">
@@ -301,7 +314,7 @@ export function App(props) {
                 }}
               >
                 <Card.Header>
-                  {activeChat.friendname} : {activeChat.publicKey}
+                  {activeChat.friendname} : {"Sometimes you win sometimes you learn"}
                   <Button
                     style={{ float: "right" }}
                     variant="warning"

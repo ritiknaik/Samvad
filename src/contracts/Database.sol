@@ -179,4 +179,12 @@ contract Database {
         }
         return userList[me].groupList[i].messages;
     }
+
+    function setWallpaper(string memory url) external {
+        userList[msg.sender].settings.wallpaper = url;
+    }
+
+    function getMyWallpaper() external view returns(string memory) {
+        return userList[msg.sender].settings.wallpaper;
+    }
 }
